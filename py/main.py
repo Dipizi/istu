@@ -15,6 +15,9 @@ class Origin:
 
         self._origin.tk.call("source", "sun-valley.tcl")
         self._origin.tk.call("set_theme", "light")
+
+        self._style = ttk.Style(self._origin)
+        self._style.configure("Treeview", rowheight=20)
         
     def init_container(self):
         _container = Container(self._origin)

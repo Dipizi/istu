@@ -11,7 +11,7 @@ class DataTable(Frame):
     def __init__(self, parent: Frame):
         Frame.__init__(self, parent)
 
-        self.treeview = ttk.Treeview(self, columns = self.treeview_columns, show = 'headings', height = 18)
+        self.treeview = ttk.Treeview(self, style="Treeview", columns = self.treeview_columns, show = 'headings', height=18)
         self.reset_treeview_columns()
         self.treeview.grid(row = 0, column = 0, sticky = EW)
 
