@@ -26,14 +26,24 @@ class DataTable(Frame):
     def connect(self):
         self.connection = sqlite3.connect("../db/sqlData.db")
 
-    def reset(self):
-        i = 0
-        for row in self.connection.execute("""
+    def clear_data(self):
+        self.treeview.delete(*self.treeview.get_children())
+
+    def get_data(self) -> list:
+        return self.connection.execute("""
         SELECT Student.surname, Student.name, Student.patronymic, Institute.name, Student.group_number
         FROM Student
         LEFT JOIN Institute
         ON Student.institute_code = Institute.institute_code
         ORDER BY Student.surname ASC
-        """):
+        """)
+
+    def set_data(self, list: list):
+        self.clear_data()
+        i = 0
+        for row in list:
             self.treeview.insert("", i, values=row)
             i = i + 1
+
+    def reset(self):
+        self.set_data(self.get_data())

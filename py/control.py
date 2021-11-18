@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import ttk
+from types import NoneType
 import hint_entry
+import name_search
 
 class Control(Frame):
     sort_options = None
@@ -9,6 +11,7 @@ class Control(Frame):
     dropdown_option_1 = None
     dropdown_option_2 = None
     reset_btn = None
+    name_search = None
 
     forecast_sort = None
     percentage_entry = None
@@ -17,6 +20,7 @@ class Control(Frame):
 
     def __init__(self, parent: Frame):
         Frame.__init__(self, parent)
+        self.name_search = name_search.NameSearch(self)
 
         self.var1 = StringVar(self.sort_options)
         self.var1.set('Институт')
@@ -39,9 +43,10 @@ class Control(Frame):
         self.sort_options.grid(row = 0, column = 0, sticky = NSEW, columnspan = 3)
 
         self.search_entry = hint_entry.HintEntry(self.sort_options, hint = "ФИО")
+        self.search_entry.preserve_contents = True
         self.search_entry.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        self.search_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = 'Найти')
+        self.search_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = 'Найти', command = self.name_search_command)
         self.search_btn.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = W)
 
         self.dropdown_option_1 = ttk.OptionMenu(self.sort_options, self.var1, [])
@@ -49,7 +54,7 @@ class Control(Frame):
         self.dropdown_option_2 = ttk.OptionMenu(self.sort_options, self.var2, [])
         self.dropdown_option_2.grid(row = 1, column = 1, padx = 10, pady = 10, sticky = EW)
 
-        self.reset_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = "Сбросить сортировку")
+        self.reset_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = "Сбросить сортировку", command = self.reset_command)
         self.reset_btn.grid(row = 1, column = 2, padx = 10, pady = 10, sticky = EW)
 
     def configure_forecast_sort(self):
@@ -81,3 +86,11 @@ class Control(Frame):
     def percentage_slider_command(self, _):
         self.var3.set(self.percentage_slider.get())
         self.percentage_entry.set_value(self.var3.get())
+
+    def reset_command(self):
+        self.master.data_table.reset()
+
+    def name_search_command(self):
+        s = self.search_entry.get()
+        if (s != "" and s != "ФИО"):
+            self.master.data_table.set_data(self.name_search.search(self.search_entry.get()))
