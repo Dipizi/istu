@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-from types import NoneType
 import hint_entry
 import name_search
 
@@ -94,3 +93,5 @@ class Control(Frame):
         s = self.search_entry.get()
         if (s != "" and s != "ФИО"):
             self.master.data_table.set_data(self.name_search.search(self.search_entry.get()))
+        else:
+            self.master.data_table.reset()

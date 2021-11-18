@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-import tkinter
 from container import *
 
 class HintEntry(ttk.Entry):

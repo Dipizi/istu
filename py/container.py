@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 from control import *
 from data_table import *
 
@@ -23,7 +24,7 @@ class Container(Frame):
         self.forecast.grid(row = 2, column = 0, sticky = NSEW)
         self.forecast_btn = ttk.Button(self.forecast, style='Accent.TButton', text = 'Прогноз', width = 30)
         self.forecast_btn.pack()
-        self.export_btn = ttk.Button(self.forecast, text = "Экспортировать таблицу")
+        self.export_btn = ttk.Button(self.forecast, text = "Экспортировать таблицу", command = self.save_table_as_excel)
         self.export_btn.place(x = 0, y = 0)
 
     def __internal_init(self, origin: Tk):
@@ -35,3 +36,11 @@ class Container(Frame):
         self.rowconfigure(0, minsize = 100)
         self.rowconfigure(1, minsize = 400)
         self.rowconfigure(2, minsize = 100)
+
+    def save_table_as_excel(self):
+        file = filedialog.asksaveasfilename(title = "Выберите файл", defaultextension = ".xlsx", filetypes = [("Excel file", "*.xlsx")], confirmoverwrite = True)
+        if file:
+            try:
+                self.data_table.cur_to_excel(file)
+            except:
+                pass
