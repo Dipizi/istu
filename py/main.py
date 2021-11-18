@@ -13,7 +13,7 @@ class Origin:
         self._origin.geometry("1040x640")
         self._origin.resizable(0, 0)
 
-        self._origin.tk.call("source", "py/sun-valley.tcl")
+        self._origin.tk.call("source", "sun-valley.tcl")
         self._origin.tk.call("set_theme", "light")
         
     def init_container(self):

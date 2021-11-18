@@ -24,7 +24,7 @@ class DataTable(Frame):
             self.treeview.column(i, width = 158, minwidth = 30)
 
     def connect(self):
-        self.connection = sqlite3.connect("db/sqlData.db")
+        self.connection = sqlite3.connect("../db/sqlData.db")
 
     def reset(self):
         i = 0
