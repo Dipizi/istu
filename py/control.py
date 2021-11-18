@@ -88,6 +88,7 @@ class Control(Frame):
 
     def reset_command(self):
         self.master.data_table.reset()
+        self.search_entry.set_hint()
 
     def name_search_command(self):
         s = self.search_entry.get()
