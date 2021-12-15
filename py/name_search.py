@@ -8,7 +8,7 @@ class NameSearch():
         self.master = master
 
     def search(self, value: str) -> list:
-        l: list = self.master.master.data_table.get_data()
+        l: list = self.master.master.data_table.get_preview_data()
         ret: list = []
         i = 0
         for elem in l:

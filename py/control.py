@@ -26,7 +26,7 @@ class Control(Frame):
         self.var2 = StringVar(self.sort_options)
         self.var2.set('Группа')
         self.var3 = IntVar(self.sort_options)
-        self.var3.set(100)
+        self.var3.set(0)
 
         self.configure_table()
         self.configure_sort_control()
@@ -48,12 +48,14 @@ class Control(Frame):
         self.search_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = 'Найти', command = self.name_search_command)
         self.search_btn.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = W)
 
-        self.dropdown_option_1 = ttk.OptionMenu(self.sort_options, self.var1, [])
+        self.dropdown_option_1 = ttk.OptionMenu(self.sort_options, self.var1, *['Институт', 'Информатика и вычислительная техника'])
+        self.dropdown_option_1.configure(width = 5)
         self.dropdown_option_1.grid(row = 1, column = 0, padx = 10, pady = 10, sticky = EW)
-        self.dropdown_option_2 = ttk.OptionMenu(self.sort_options, self.var2, [])
+        self.dropdown_option_2 = ttk.OptionMenu(self.sort_options, self.var2, *['Группа', 'Б19-782-2'])
+        self.dropdown_option_2.configure(width = 5)
         self.dropdown_option_2.grid(row = 1, column = 1, padx = 10, pady = 10, sticky = EW)
 
-        self.reset_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = "Сбросить сортировку", command = self.reset_command)
+        self.reset_btn = ttk.Button(self.sort_options, style = "Accent.TButton", text = "Сбросить фильтр", command = self.reset_command)
         self.reset_btn.grid(row = 1, column = 2, padx = 10, pady = 10, sticky = EW)
 
     def configure_forecast_sort(self):
@@ -66,10 +68,10 @@ class Control(Frame):
         self.percentage_entry.preserve_contents = True
         self.percentage_entry.grid(row = 0, column = 0, sticky = E, padx = (0, 10))
 
-        self.percentage_btn = ttk.Button(self.forecast_sort, style = "Accent.TButton", text = 'Сортировать')
-        self.percentage_btn.grid(row = 0, column = 1, sticky = W, padx = (10, 0))
+        self.percentage_btn = ttk.Button(self.forecast_sort, style = "Accent.TButton", text = 'Фильтр')
+        self.percentage_btn.grid(row = 0, column = 1, sticky = EW, padx = (10, 0))
 
-        self.percentage_slider = ttk.Scale(self.forecast_sort, from_ = 100, to = 0, variable = self.var3, command = self.percentage_slider_command)
+        self.percentage_slider = ttk.Scale(self.forecast_sort, from_ = 0, to = 100, variable = self.var3, command = self.percentage_slider_command, value = 0)
         self.percentage_slider.grid(row = 1, column = 0, sticky = EW, padx = 10, pady = 10, columnspan = 2)
 
     def forecast_sort_configure_table(self):
@@ -89,6 +91,8 @@ class Control(Frame):
     def reset_command(self):
         self.master.data_table.reset()
         self.search_entry.set_hint()
+        self.var1.set("Институт")
+        self.var2.set("Группа")
 
     def name_search_command(self):
         s = self.search_entry.get()
