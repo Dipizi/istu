@@ -68,7 +68,7 @@ class Control(Frame):
         self.percentage_entry.preserve_contents = True
         self.percentage_entry.grid(row = 0, column = 0, sticky = E, padx = (0, 10))
 
-        self.percentage_btn = ttk.Button(self.forecast_sort, style = "Accent.TButton", text = 'Фильтр')
+        self.percentage_btn = ttk.Button(self.forecast_sort, style = "Accent.TButton", text = 'Отбор')
         self.percentage_btn.grid(row = 0, column = 1, sticky = EW, padx = (10, 0))
 
         self.percentage_slider = ttk.Scale(self.forecast_sort, from_ = 0, to = 100, variable = self.var3, command = self.percentage_slider_command, value = 0)
